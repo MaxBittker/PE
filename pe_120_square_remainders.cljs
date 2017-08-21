@@ -32,24 +32,16 @@
             (map #(/ % fd) ds)
             (range 1 (inc llpa)))))   
 
-                
-(defn patterns [rs]
-    (let [ds (next (distances rs))]    
-        (map #(partition % rs) ds)))
 
-(defn patterns-match? [p]
-    (apply = (take 10 p)))
-
-(defn real-patterns [rs]
-    (filter patterns-match? (patterns rs)))
-
-(defn best-pattern [rs]
-    (count (first (first (real-patterns rs)))))
+(defn first-cycle [rs]
+    (if (look-like-pattern rs)                
+     (second (distances rs))
+     (println (take 100 rs))))
 
 (defn rmax [a]
     (let [rs (rseq a)] 
         (apply max 
-            (take (best-pattern rs) rs))))
+            (take (first-cycle rs) rs))))
        
 (def arange (range 3M 1001M))
 
