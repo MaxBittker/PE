@@ -20,6 +20,9 @@
     #{}))
 
 
-(iterate (fn [v] conj #{} (rand-int 10)) 0))
+(take-while (fn has-match)
+ (iterate 
+  (fn [v] (conj v (rand-int 1000)))
+  #{}))
 
     
