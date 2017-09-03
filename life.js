@@ -1,3 +1,4 @@
+"use strict";
 function makeBoard(m, n) {
     var board = new Array(m)
     for (var col = 0; col < m; col++) {

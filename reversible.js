@@ -1,3 +1,5 @@
+"use strict";
+
 function isReversible(number) {
     var num = reverseSum(number).toString().split('')
 
