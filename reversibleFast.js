@@ -1,3 +1,4 @@
+"use strict";
 function isReversible(number) {
     var num = reverseNumber(number) + number
 

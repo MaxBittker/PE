@@ -1,0 +1,7 @@
+[package]
+name = "adjdigs"
+version = "0.1.0"
+authors = ["maxbittker <maxbittker@gmail.com>"]
+
+[dependencies]
+num = "*"

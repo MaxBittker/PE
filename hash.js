@@ -1,3 +1,4 @@
+"use strict";
 function hashmap(size) {
     this.dict = new Array(size);
     for (var i = this.dict.length - 1; i >= 0; i--) {
@@ -44,9 +45,9 @@ hashmap.prototype = {
 }
 
 
-var hm = new hashmap(100000	)
+var hm = new hashmap(1000)
 
-for (var i = 0; i <= 100000; i++) {
+for (var i = 0; i <= 1000; i++) {
     if (hm.lookup(i) !== undefined)
         console.log(i + ' false positive')
 
@@ -58,3 +59,6 @@ for (var i = 0; i <= 100000; i++) {
         console.log(i + ' false negative')
 
 };
+var chains = hm.dict.map((item) => item.length)
+
+console.log(chains.join(" "))

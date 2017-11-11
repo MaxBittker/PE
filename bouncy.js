@@ -1,3 +1,4 @@
+"use strict";
 function isBouncy(number) {
     var inc = isDirectional(number, 'increasing')
     var dec = isDirectional(number, 'decreasing')

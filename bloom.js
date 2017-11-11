@@ -1,3 +1,4 @@
+"use strict";
 function bloomFilter(size, n) {
     this.filter = new Array(size)
     this.hashNumber = n
@@ -8,7 +9,7 @@ function bloomFilter(size, n) {
 bloomFilter.prototype = {
     hash: function(value, m) {
         var hash = 0,
-            i, character, length
+            i, character, len
         for (i = 0, len = value.length; i < len; i++) {
             character = value.charCodeAt(i)
             hash = ((hash << 5) - hash) + character

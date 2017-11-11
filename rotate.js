@@ -1,3 +1,4 @@
+"use strict";
 function createArray(n, m) {
     var table = new Array(n)
     var cols, rows;

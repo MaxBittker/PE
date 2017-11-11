@@ -28,12 +28,17 @@ var subsets = (set) => {
 }
 
 // console.log(subsets([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]))
-console.log(subsets("max".split("")).join(" "))
+console.time('ss')
+
+// console.log(
+    subsets("123456789".split("")).join(" ")
+    // )
+console.timeEnd('ss')
     // 
 var powerset = set => {
     var sets = []
-    if (set.length > 0){
-    	console.log(set)
+    if (set.length > 0) {
+        // console.log(set)
         sets.push(set.join(""))
     }
 
@@ -46,5 +51,8 @@ var powerset = set => {
 
     return (sets)
 }
-
-console.log(powerset("max".split("")).join(" "))
+console.time('ps')
+// console.log(
+    powerset("123456789".split("")).join(" ")
+    // )
+console.timeEnd('ps')

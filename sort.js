@@ -1,3 +1,4 @@
+"use strict";
 function mergeSort(arr, pred) {
     if (pred === undefined) {
         pred = (l, r) => {
