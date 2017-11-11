@@ -5,3 +5,4 @@ authors = ["maxbittker <maxbittker@gmail.com>"]
 
 [dependencies]
 num = "*"
+primal = "0.2.3"
