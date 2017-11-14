@@ -1,0 +1,5 @@
+(require '[clojure.string :as str])
+(defn factorial [n v] (if (= n 1) v (recur (dec n) (* v n))))
+(def num (factorial (bigint 100) (bigint 1)))
+(def digits (str/split (str num) #""))
+(println (apply + (map (fn [s] (Integer. s )) digits)))
