@@ -2,7 +2,8 @@ from sympy import factorint
 
 def a(n): # Orson R. L. Peters, Jan 31 2017
     r = 1
-    for p, e in factorint(n).iteritems():
+    factors = factorint(n)
+    for p, e in factors.items():
         if p%4 == 1: r *= 2*e + 1
         if r *4 > 420: return 0;
     return 4*r if n > 0 else 0
