@@ -6,8 +6,10 @@
 (def groups-parse
   (insta/parser
     "Gr = <'{'> {(Tr|Gr)<','>} (Tr|Gr)? <'}'>
-     Tr = <'<'> {TrCh} <'>'>
-     TrCh = <('!' #'.')> | #'[^!>]'
+     Tr = <'<'> {TrChar} <'>'>
+     TrChar = <Canceled> | Garbage
+     Garbage = #'[^!>]'
+     Canceled= ('!' #'.')
     "))
        
 (defn score-group [[tag & content]]
@@ -19,9 +21,17 @@
 
 (defn score-stream [stream]
   (let [parsed (groups-parse stream)]
-    (println parsed)
     (apply + (score-group parsed))))
+  
+(defn score-garbage [stream]
+  (->> stream
+    (flatten)
+    (filter (partial = :Garbage))
+    (count))) 
 
+(defn score-garbage-stream [stream]
+  (let [parsed (groups-parse stream)]
+    (score-garbage parsed)))
 
 (def example-cases 
   [
@@ -50,12 +60,14 @@
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  ; (println (score-stream (slurp "input.txt")))
-  (doall 
-    (map 
-        (fn [[i e]]
-            (println  i e (score-stream i) "\n"))
-        garbage-examples)))
+  (println (score-garbage-stream (slurp "input.txt")))
+  (println (score-stream (slurp "input.txt"))))
+  
+  ; (doall 
+  ;   (map 
+  ;       (fn [[i e]]
+  ;           (println  i e (score-garbage-stream i) "\n"))
+  ;       garbage-examples)))
   ; (doall 
   ;   (map 
   ;       (fn [[i e]]
