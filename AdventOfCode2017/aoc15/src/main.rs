@@ -1,12 +1,14 @@
 
 fn generator_maker(factor: i64, multiple: i64) -> Box<Fn(i64) -> i64> {
+    let calc = move |prev: i64| (prev * factor).wrapping_rem(2147483647);
+
     Box::new(move |prev| {
-        let mut canditate = (prev * factor).wrapping_rem(2147483647);
+        let mut canditate = calc(prev);
         loop {
             if canditate % multiple == 0 {
                 return canditate;
             } else {
-                canditate = (canditate * factor).wrapping_rem(2147483647);
+                canditate = calc(canditate)
             }
         }
     })
@@ -32,5 +34,3 @@ fn main() {
 
     println!("{}", c);
 }
-
-//
