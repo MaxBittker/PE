@@ -78,22 +78,80 @@
  (count (filter (partial = "1") st)))
 
 (defn to-bin [hex]
- (apply str
-     (map 
-        #(-> %
-            (js/parseInt 16)
-            (.toString  2)
-            (.padStart  4 "0"))
-        (.split hex ""))))
-    
+  (vec
+    (apply str
+        (map 
+            #(-> %
+                (js/parseInt 16)
+                (.toString  2)
+                (.padStart  4 "0"))
+            (.split hex "")))))
+        
+
+; (count-1s (apply concat grid))
 
 (def grid
-    (apply concat 
+    (vec
         (map 
             to-bin
             (map 
                 compute-hash
                 inputs))))
 
-(count-1s grid)
-                    
+
+
+(defn point-add [a b]
+    (map + a b))
+    
+(def neighbors [[0 1] [0 -1] [-1 0] [1 0]])
+        
+
+(defn in-bounds? [p]                                        
+    (every?
+        (fn [p]
+            (and 
+                (<= 0 p)
+                (> 128 p)))
+     p))        
+
+(defn valid-neighbors [p]
+    (filter
+        in-bounds?
+        (map 
+            (partial point-add p)
+            neighbors)))
+
+(defn flood [grid p]
+ (let [nbs (valid-neighbors p)
+       sn (filter #(= "1" (get-in grid %)) nbs) 
+       ngrid (assoc-in grid p "2")]
+    (reduce 
+       flood
+       ngrid 
+       sn)))
+    
+(defn find-seed [grid]
+    (let [ones  (filter 
+                    (fn [[y v]]  (= "1" v))
+                    (map-indexed vector (apply concat grid)))
+          i (first (first ones))
+          x (mod i 128)
+          y (int (/ i 128))]
+        (cond (not (nil? i))
+          [y x])))          
+
+
+(defn count-islands 
+    ([grid] (count-islands grid 0))
+    ([grid n] 
+     (let [seed (find-seed grid)]
+        (if seed
+            (recur (flood grid seed) (inc n))
+            n))))
+
+(defn gp [g]       
+    (map (partial take 8) (take 8 g)))
+            
+   
+  
+
